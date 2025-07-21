@@ -1,36 +1,26 @@
 import "./styles.css";
 
-import { loadHome } from "./home.js";
-import { loadMenu } from "./menu.js";
-import { loadAbout } from "./about.js";
-import { loadFooter } from "./footer.js";
+import { dialogCreateNote } from "./dialogs/dialogCreateNote";
+import { dialogCreateProject } from "./dialogs/dialogCreateProject";
+import { loadProjects } from "./loadProjects";
 
-const contentContainer = document.querySelector("#content");
-const body = document.querySelector("body");
+export const projects = { Default: [] };
+
+export const contentContainer = document.querySelector("#content");
 
 const navButtons = document.querySelector("nav").querySelectorAll("button");
+const buttonClass = ["project-button", "note-button"];
 
-navButtons[0].classList.add("active");
-loadHome(contentContainer);
-loadFooter(body);
-
-navButtons.forEach((item) => {
-  item.classList.add("nav-button");
+navButtons.forEach((item, index) => {
+  item.className = buttonClass[index];
+  item.classList.add = "nav-buttons";
   item.addEventListener("click", () => {
-    navButtons.forEach((b) => b.classList.remove("active"));
-    item.classList.add("active");
-    contentContainer.innerHTML = "";
-    loadContent(item.textContent);
+    if (item.className === "project-button") {
+      dialogCreateProject(contentContainer);
+    } else {
+      dialogCreateNote(contentContainer);
+    }
   });
 });
 
-const pageLoaders = {
-  Home: loadHome,
-  Menu: loadMenu,
-  About: loadAbout,
-};
-
-function loadContent(pageTitle) {
-  const loader = pageLoaders[pageTitle];
-  loader(contentContainer);
-}
+loadProjects(contentContainer, projects);
