@@ -14,6 +14,7 @@ export function dialogCreateProject(contentContainer) {
     const formData = new FormData(form);
     const title = formData.get("name");
     projects[title] = [];
+    localStorage.setItem("projects", JSON.stringify(projects));
     dialog.remove();
     form.reset();
     loadProjects(contentContainer, projects);

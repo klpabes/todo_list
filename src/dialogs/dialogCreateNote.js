@@ -25,6 +25,7 @@ export function dialogCreateNote(contentContainer) {
 
     const newItem = new TodoItem(title, description, dueDate, priority);
     newItem.addToProject(project);
+    localStorage.setItem("projects", JSON.stringify(projects));
     form.reset();
     dialog.remove();
     loadProjects(contentContainer, projects);

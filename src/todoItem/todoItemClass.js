@@ -18,6 +18,7 @@ export class TodoItem {
 
   deleteProject(project) {
     projects[project] = projects[project].filter((item) => item.id !== this.id);
+    localStorage.setItem("projects", JSON.stringify(projects));
     loadProjects(contentContainer, projects);
   }
 
@@ -29,6 +30,7 @@ export class TodoItem {
 
     this.deleteProject(oldProject);
     this.addToProject(project);
+    localStorage.setItem("projects", JSON.stringify(projects));
   }
 
   completeProject() {
